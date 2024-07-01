@@ -1,0 +1,54 @@
+.page {
+  padding: 16px 16px 96px 16px;
+}
+
+.section-container {
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.zaui-header {
+  position: sticky;
+  // height: auto;
+  margin-bottom: 0;
+  flex: none;
+
+  &::after {
+    display: none;
+  }
+}
+
+.my-swal {
+  padding: 2rem;
+  // width: 90% !important; /* Default width */
+}
+
+// @media (min-width: 576px) {
+//   .my-swal {
+//     width: 50% !important; /* Width for small screens */
+//   }
+// }
+
+// @media (min-width: 768px) {
+//   .my-swal {
+//     width: 40% !important; /* Width for medium screens */
+//   }
+// }
+
+// @media (min-width: 992px) {
+//   .my-swal {
+//     width: 30% !important; /* Width for large screens */
+//   }
+// }
+
+// @media (min-width: 1200px) {
+//   .my-swal {
+//     width: 20% !important; /* Width for extra large screens */
+//   }
+// }
+
+.mTop {
+  margin-top: 1rem;
+}

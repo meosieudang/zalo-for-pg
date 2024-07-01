@@ -1,0 +1,19 @@
+{
+  "app": {
+    "title": "CREGift",
+    "headerTitle": "CREGift",
+    "headerColor": "",
+    "textColor": "black",
+    "statusBarColor": "#f2f2f2",
+    "leftButton": "none",
+    "statusBar": "transparent",
+    "actionBarHidden": false,
+    "hideAndroidBottomNavigationBar": false,
+    "hideIOSSafeAreaBottom": false
+  },
+  "debug": false,
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": [],
+  "pages": []
+}
