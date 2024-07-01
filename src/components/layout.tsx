@@ -33,7 +33,10 @@ const Layout = () => {
         // console.log(locationPath.get("type") === TYPE.LUCKY_DRAW);
         const code = locationPath.get('code');
         const type = locationPath.get('type');
-        return navi(`account-info/${code}/${type}`);
+        if (locationPath.has('code') && locationPath.has('type')) {
+            navi(`account-info/${code}/${type}`);
+            return;
+        }
     }, []);
 
     return (
