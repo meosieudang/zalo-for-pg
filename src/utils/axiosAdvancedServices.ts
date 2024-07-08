@@ -1,6 +1,7 @@
 // import { store } from 'app/store';
 // import { setLogout, setToken } from 'app/store/slices/wsAccount';
 import axios, { AxiosError } from 'axios';
+import { getStorage } from 'zmp-sdk/apis';
 // import { getHmacHeaders } from "./hmacAuth";
 // import { getSession, setSession } from './jwt';
 
@@ -13,8 +14,8 @@ export type ISuccess = {
 const apiKey = 'cre-api-key';
 const secretKey = 'cre-mini-app-api';
 
-const axiosServices = axios.create({
-    baseURL: 'https://zalo-mini-api.creasia.vn',
+const axiosAdvancedServices = axios.create({
+    baseURL: 'https://advancesystem-api.creasia.vn',
     // baseURL: 'https://a9a9-2402-800-6370-653f-456f-f023-58ed-6347.ngrok-free.app',
     headers: {
         'Content-Type': 'application/json'
@@ -85,7 +86,9 @@ const refreshToken = async () => {
     //   }
 };
 
-axiosServices.interceptors.request.use(async (config) => {
+axiosAdvancedServices.interceptors.request.use(async (config) => {
+    // const res = await getStorage({ keys: ['key1'] });
+    // config.headers['Authorization'] = `Bearer ${res.key1}`;
     //   const accessToken = await AsyncStorage.getItem("accessToken");
     //   config.headers["Authorization"] = `Bearer ${accessToken}`;
     // console.log(config, "l");
@@ -97,6 +100,6 @@ axiosServices.interceptors.request.use(async (config) => {
     return config;
 });
 
-axiosServices.interceptors.response.use((response) => response.data, onResponseError);
+axiosAdvancedServices.interceptors.response.use((response) => response.data, onResponseError);
 
-export default axiosServices;
+export default axiosAdvancedServices;

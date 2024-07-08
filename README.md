@@ -1,4 +1,4 @@
-# CREGift
+# CRE Advanced
 
 ## ZMP CLI Options
 
@@ -8,7 +8,7 @@ ZMP app created with following options:
 {
   "cwd": "C:\\Users\\ASUS\\Desktop\\cregift-zalo",
   "newProject": true,
-  "name": "CREGift",
+  "name": "CRE Advanced",
   "package": "zmp-ui",
   "framework": "react-typescript",
   "cssPreProcessor": "scss",
@@ -26,5 +26,5 @@ ZMP app created with following options:
 
 ## NPM Scripts
 
-* 🔥 `start` - run development server
-* 🙏 `deploy` - deploy mini app for production
+-   🔥 `start` - run development server
+-   🙏 `deploy` - deploy mini app for production

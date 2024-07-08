@@ -133,7 +133,7 @@ const AccountInfo: React.FunctionComponent = () => {
     //     return <ErrorScreen onRetry={qGetDataFromQRCode.refetch || qGetDataLuckyGift.refetch} />;
     return (
         <Box height={'100vh'} justifyContent={'center'} display={'flex'} flexDirection={'column'}>
-            <Header title={qrCodeData?.shopName ?? 'CREGift'} onBackClick={onBackClick} />
+            <Header title={qrCodeData?.shopName ?? 'CRE Advanced'} onBackClick={onBackClick} />
             <Stack mt={1} bgcolor={'white'}>
                 <Typography color={'primary.main'} variant="subtitle1" px={2} pt={1}>{`Thông tin người nhận quà`}</Typography>
                 <Stack gap={2} bgcolor={'white'} p={2}>

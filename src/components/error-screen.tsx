@@ -13,7 +13,7 @@ const ErrorScreen = ({ onRetry }) => {
 
     return (
         <Box height={'100vh'} bgcolor={'white'} display={'flex'} flexDirection={'column'}>
-            <Header title={'CREGift'} />
+            <Header title={'CRE Advanced'} showBackIcon={true} />
             <Box flex={1} />
             <Box flex={4}>
                 <img src={error} />
@@ -22,12 +22,12 @@ const ErrorScreen = ({ onRetry }) => {
                 <Stack direction={'column'} spacing={3}>
                     <Typography variant="h6" textAlign={'center'}>{`Opps`}</Typography>
                     <Typography color={'error'} textAlign={'center'}>
-                        {'Có lỗi xảy ra! Vui lòng liên hệ với PG!'}
+                        {'Có lỗi xảy ra! Vui lòng liên hệ với admin!'}
                     </Typography>
                     <Stack p={2} direction={'row'} alignItems={'center'} justifyContent={'center'} spacing={2}>
-                        <Button onClick={onCloseApp} variant="outlined">
+                        {/* <Button onClick={onCloseApp} variant="outlined">
                             Trở về trang chủ
-                        </Button>
+                        </Button> */}
                         <Button variant="contained" onClick={onRetry}>{`Thử lại`}</Button>
                     </Stack>
                 </Stack>

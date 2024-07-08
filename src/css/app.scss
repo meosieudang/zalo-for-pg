@@ -1,28 +1,28 @@
 .page {
-  padding: 16px 16px 96px 16px;
+    padding: 16px 16px 96px 16px;
 }
 
 .section-container {
-  padding: 16px;
-  background: #ffffff;
-  border-radius: 8px;
-  margin-bottom: 24px;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 24px;
 }
 
 .zaui-header {
-  position: sticky;
-  // height: auto;
-  margin-bottom: 0;
-  flex: none;
+    position: sticky;
+    // height: auto;
+    margin-bottom: 0;
+    flex: none;
 
-  &::after {
-    display: none;
-  }
+    &::after {
+        display: none;
+    }
 }
 
 .my-swal {
-  padding: 2rem;
-  // width: 90% !important; /* Default width */
+    padding: 2rem;
+    // width: 90% !important; /* Default width */
 }
 
 // @media (min-width: 576px) {
@@ -50,5 +50,35 @@
 // }
 
 .mTop {
-  margin-top: 1rem;
+    margin-top: 1rem;
+}
+
+.video {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    object-fit: cover;
+}
+
+.pTop {
+    padding-top: var(--zaui-safe-area-inset-top, 16px);
+}
+
+.pBottom {
+    padding-bottom: var(--zaui-safe-area-inset-bottom, 16px);
+}
+
+.videoWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    .qrVideo {
+        object-fit: cover;
+        border: 1px solid #ddd;
+        width: 350px;
+        height: 350px;
+        border-radius: 50px;
+    }
 }

@@ -112,7 +112,7 @@ const SchemePage = () => {
 
     return (
         <Box minHeight={'100vh'} display={'flex'} flexDirection={'column'} flex={1} bgcolor={'white'}>
-            <Header title={qrCodeData?.shopName ?? 'CREGift'} onBackClick={onBackClick} />
+            <Header title={qrCodeData?.shopName ?? 'CRE Advanced'} onBackClick={onBackClick} />
 
             <Box px={2}>
                 <Stack spacing={2}>

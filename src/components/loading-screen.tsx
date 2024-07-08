@@ -6,7 +6,7 @@ import { Header } from 'zmp-ui';
 const LoadingScreen = () => {
     return (
         <Box height={'100vh'} flex={1} bgcolor={'white'} display={'flex'} flexDirection={'column'}>
-            <Header title={'CREGift'} />
+            <Header title={'CRE Advanced'} showBackIcon={false} />
             <Stack spacing={2} justifyContent={'center'} alignItems={'center'} flex={1}>
                 <CircularProgress />
                 <Typography>{`Loading...`}</Typography>

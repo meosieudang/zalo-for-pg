@@ -26,7 +26,7 @@ const QRCode = () => {
         configAppView({
             headerColor: '#f2f2f2',
             actionBar: {
-                title: 'CREGift',
+                title: 'CRE Advanced',
                 leftButton: 'none'
             },
             success: () => {
@@ -52,7 +52,7 @@ const QRCode = () => {
                 bgcolor: 'white'
             }}
         >
-            <Header title={qrCodeData?.shopName ?? 'CREGift'} showBackIcon={false} />
+            <Header title={qrCodeData?.shopName ?? 'CRE Advanced'} showBackIcon={false} />
             <Stack alignItems={'center'} gap={2} p={2}>
                 <Typography variant="h6">{`QR Code`}</Typography>
                 {code && (

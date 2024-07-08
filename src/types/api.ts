@@ -2,17 +2,20 @@ export interface QRCodeData {
     status: 'success' | 'error';
     error: string;
     data: {
-        id: number;
-        reportId: number;
-        createdDate: string;
-        shopId: number;
-        employeeId: number;
-        reportDate: string;
-        shiftId: number;
-        orderCode: string;
+        campaignId: number;
         content: string;
+        createdDate: string;
+        employeeId: number;
+        id: number;
+        orderCode: string;
+        reportDate: string;
+        reportId: number;
+        shiftId: number;
+        shopId: number;
         shopName: string;
-        campaignId: string;
+        type: number;
+        zaloUniqueId: string | null;
+        sellOutId: number;
     };
 }
 
@@ -74,6 +77,12 @@ export interface ReportContent {
     gifts: Gift[];
     invoice: Invoice;
     accessToken: string;
+    customerInfo: {
+        fullName: string;
+        fullNameOther: string;
+        phoneNumber: string;
+        phoneNumberOther: string;
+    };
 }
 
 export interface Confirm {

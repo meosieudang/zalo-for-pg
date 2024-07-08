@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import React from 'react';
-import { CBVNLuckyDraw2024 } from 'react-appne';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Header } from 'zmp-ui';
 import ErrorScreen from '../components/error-screen';
@@ -48,7 +47,7 @@ const Game = () => {
     return (
         <Box height={'100vh'} display={'flex'} flexDirection={'column'} flex={1}>
             <Header title="Vòng quay may mắn" />
-            <Box>{Boolean(content) && <CBVNLuckyDraw2024 onCallBackData={onCallBackData} urlParams={param} />}</Box>
+            {/* <Box>{Boolean(content) && <CBVNLuckyDraw2024 onCallBackData={onCallBackData} urlParams={param} />}</Box> */}
         </Box>
     );
 };
