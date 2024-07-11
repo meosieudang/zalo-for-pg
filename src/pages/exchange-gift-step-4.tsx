@@ -4,7 +4,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { LoadingButton } from '@mui/lab';
 import { Box, IconButton, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useAliveController } from 'react-activation';
 import { Controller, useController, useFieldArray, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PullToRefresh from 'react-simple-pull-to-refresh';
@@ -27,6 +26,9 @@ import { ReportContent } from '../types/api';
 import { ConfirmDataZaloRequest, OutletsResponse } from '../types/zaloMiniTypes';
 import eventEmitter from '../utils/event-emitter';
 import GiftItem from './index/gift-item';
+import CameraModal from '../components/camera-modal';
+import { useToggle } from 'react-use';
+import CameraPage from './camera';
 
 const regexPhoneVN = /((^(\+84|84|0|0084){1})(3|5|7|8|9))+([0-9]{8})$/;
 const MIN_PHOTO = `Vui lòng chụp ảnh ít nhất 1 tấm`;
@@ -66,8 +68,6 @@ const ExchangeGiftStep4 = () => {
     const parseDataContent: ReportContent = Boolean(dataQRCode?.content) ? JSON.parse(dataQRCode?.content ?? '') : {};
     const [billImages, givingGiftImages] = useGetSelloutImageQueries({ sellId: state.selloutId ? state.selloutId : dataQRCode?.sellOutId });
 
-    const { drop, dropScope, clear, getCachingNodes } = useAliveController();
-    console.log(getCachingNodes(), 'sss');
     console.log('code', state.qrCode);
 
     const {
@@ -118,7 +118,6 @@ const ExchangeGiftStep4 = () => {
                 allowOutsideClick: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    clear();
                     navi(-1);
                 }
             });
@@ -231,14 +230,12 @@ const ExchangeGiftStep4 = () => {
 
     const handleBack = () => {
         if (state.onlyRead) {
-            clear();
             navi(-1);
         } else {
             SwalConfirm({
                 text: `Dữ liệu thông tin sẽ mất!`
             }).then((result) => {
                 if (result.isConfirmed) {
-                    clear();
                     navi(-1);
                 }
             });
@@ -415,7 +412,7 @@ const PrizePhotoInfo = ({ control, errors, state }) => {
     const { fields: photoFields, append, remove } = useFieldArray({ control, name: 'prizePhotos' });
     const [open, setOpen] = React.useState(false);
     const [img, setImg] = useState<string | null>(null);
-    const handleClickOpen = () => navi('/camera');
+    const handleClickOpen = () => setToggle();
     console.log(photoFields, 'photoFields');
 
     const handleClose = () => {
@@ -432,6 +429,9 @@ const PrizePhotoInfo = ({ control, errors, state }) => {
             eventEmitter.removeAllListeners('QR_CODE_CHANGED');
         };
     }, []);
+    const [toggle, setToggle] = useToggle(false);
+    const qrScanner = toggle ? <CameraPage onClose={setToggle} /> : null;
+
     return (
         <Stack my={1} bgcolor={'white'}>
             <Typography color={'primary.main'} variant="subtitle1" px={2} pt={1}>
@@ -491,6 +491,9 @@ const PrizePhotoInfo = ({ control, errors, state }) => {
                 </Stack>
             </Stack>
             <ImageReview open={open} handleClose={handleClose} img={img} />
+            <CameraModal open={toggle} handleClose={setToggle}>
+                {qrScanner}
+            </CameraModal>
         </Stack>
     );
 };

@@ -5,7 +5,6 @@ import { App, SnackbarProvider, ZMPRouter } from 'zmp-ui';
 import { AuthProvider } from '../contexts/AuthContext';
 import Layout from './layout';
 import Navigation from './navigation';
-import { AliveScope } from 'react-activation';
 
 const MyApp = () => {
     // Create a client
@@ -23,12 +22,10 @@ const MyApp = () => {
                 <RecoilRoot>
                     <App>
                         <SnackbarProvider>
-                            <AliveScope>
-                                <ZMPRouter>
-                                    <Layout />
-                                    {/* <Navigation /> */}
-                                </ZMPRouter>
-                            </AliveScope>
+                            <ZMPRouter>
+                                <Layout />
+                                {/* <Navigation /> */}
+                            </ZMPRouter>
                         </SnackbarProvider>
                     </App>
                 </RecoilRoot>

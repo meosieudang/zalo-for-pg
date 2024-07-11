@@ -12,7 +12,7 @@ const ExchangeGiftStep3 = () => {
     const { state }: { state: OutletsResponse & { giftType?: string } } = useLocation();
 
     useEffect(() => {
-        // navi('/exchange-gift-step-4', { replace: true, state: { ...state, qrCode: '43521DE994' } });
+        // navi('/exchange-gift-step-4', { replace: true, state: { ...state, qrCode: 'HGy557cc1n' } });
         // return;
         const video = videoElementRef.current;
         if (!video) return;

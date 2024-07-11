@@ -28,7 +28,6 @@ import {
 } from '../types/zaloMiniTypes';
 import { setSession } from '../utils/jwt';
 import { GiftResponse, ProductResponse } from '../types/advancedTypes';
-import { useAliveController } from 'react-activation';
 
 export const useGetCustomerGiftQueries = ({ campaignId }) => {
     return useQueries<UseQueryOptions<ResponseNetwork<ProductResponse[]>, ResponseNetwork<GiftResponse[]>>[]>({
@@ -390,14 +389,12 @@ export const useCreateQRCodeMutation = () => {
 
 export const useCreateSelloutMutation = () => {
     const navi = useNavigate();
-    const { drop, dropScope, clear, getCachingNodes } = useAliveController();
 
-    return useMutation<{ message: string; orderCode: string; sellId: number }, AxiosError, { body: string }>({
+    return useMutation<ResponseNetwork<{ message: string; orderCode: string; sellId: number }>, AxiosError, { body: string }>({
         mutationFn: (d) => axiosZaloMiniServices.post('api/miniapp/creadvanced/createsellout', d),
         onSuccess(data, variables, context) {
             console.log(data, 'res data');
-            if (data.sellId) {
-                clear();
+            if (_.get(data, 'data.sellId')) {
                 navi(-2);
             } else {
                 Swal.fire({
@@ -428,14 +425,12 @@ export const useCreateSelloutMutation = () => {
 
 export const useUpdateCustomerInfoMutation = () => {
     const navi = useNavigate();
-    const { drop, dropScope, clear, getCachingNodes } = useAliveController();
 
-    return useMutation<number, AxiosError, { body: string }>({
+    return useMutation<ResponseNetwork<number>, AxiosError, { body: string }>({
         mutationFn: (d) => axiosZaloMiniServices.post('/api/miniapp/creadvanced/updatecustomerinfo', d),
         onSuccess(data, variables, context) {
             console.log(data, 'res data');
-            if (data > 0) {
-                clear();
+            if (data.data > 0) {
                 navi(-2);
             } else {
                 Swal.fire({

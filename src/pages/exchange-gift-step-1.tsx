@@ -4,7 +4,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Dialog, IconButton, Slide, Stack, TextField, Typography } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import React, { useEffect, useState } from 'react';
-import { useAliveController } from 'react-activation';
 import { FieldArrayWithId, useController, useFieldArray, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PullToRefresh from 'react-simple-pull-to-refresh';
@@ -21,6 +20,9 @@ import { CreateQRCodeZaloRequest, OutletsResponse } from '../types/zaloMiniTypes
 import { useCreateQRCodeMutation, useGetCustomerGiftQueries } from '../hooks/useApiv2';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ImageReview from '../components/image-review';
+import CameraModal from '../components/camera-modal';
+import CameraPage from './camera';
+import { useToggle } from 'react-use';
 
 const validationSchema = yup.object({
     shopId: yup.number(),
@@ -80,9 +82,7 @@ const ExchangeGiftStep1 = () => {
     });
 
     const navi = useNavigate();
-    const { drop, dropScope, clear, getCachingNodes } = useAliveController();
     const mCreateQRCode = useCreateQRCodeMutation();
-    console.log(getCachingNodes(), 'getCachingNodes');
 
     const onSubmit = async (d: CreateQRCodeZaloRequest) => {
         const { key1 } = await getStorage({ keys: ['key1'] });
@@ -128,12 +128,10 @@ const ExchangeGiftStep1 = () => {
 
             // DATA SUBMIT
             mCreateQRCode.mutate({ data: formData, state });
-            clear();
         }
     };
     // const handleSubmit = () => {};
     const handleBack = () => {
-        clear();
         navi(-1);
     };
 
@@ -261,7 +259,7 @@ const BillInfo = ({ control, errors }) => {
     const [open, setOpen] = React.useState(false);
     const [img, setImg] = useState<string | null>(null);
     const navi = useNavigate();
-    const handleClickOpen = () => navi('/camera');
+    const handleClickOpen = () => setToggle();
 
     const handleClose = () => {
         setOpen(false);
@@ -281,6 +279,8 @@ const BillInfo = ({ control, errors }) => {
     const { field: fieldBillCode } = useController({ control, name: 'billCode' });
     const { fields: photoFields, append, remove } = useFieldArray({ control, name: 'photos' });
 
+    const [toggle, setToggle] = useToggle(false);
+    const qrScanner = toggle ? <CameraPage onClose={setToggle} /> : null;
     return (
         <Box mx={2} mt={2}>
             <Box p={2} borderRadius={1} border={`1px dashed`} component={'fieldset'}>
@@ -351,6 +351,9 @@ const BillInfo = ({ control, errors }) => {
                     {errors}
                 </Typography>
             )}
+            <CameraModal open={toggle} handleClose={setToggle}>
+                {qrScanner}
+            </CameraModal>
         </Box>
     );
 };

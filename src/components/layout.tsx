@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import KeepAlive from 'react-activation';
 import { Route, useNavigate } from 'react-router-dom';
 import { getSystemInfo } from 'zmp-sdk/apis';
 import { AnimationRoutes } from 'zmp-ui';
@@ -56,25 +55,11 @@ const Layout = () => {
             <Route path="/sell-out-page" element={<SellOutPage />} />
             <Route path="/outlet-page" element={<OutletPage />} />
             <Route path="/home-page" element={<HomePage />} />
-            <Route
-                path="/exchange-gift-step-1"
-                element={
-                    <KeepAlive name="A">
-                        <ExchangeGiftStep1 />
-                    </KeepAlive>
-                }
-            />
+            <Route path="/exchange-gift-step-1" element={<ExchangeGiftStep1 />} />
             <Route path="/exchange-gift-step-2" element={<ExchangeGiftStep2 />} />
             <Route path="/exchange-gift-step-3" element={<ExchangeGiftStep3 />} />
-            <Route
-                path="/exchange-gift-step-4"
-                element={
-                    <KeepAlive name="B">
-                        <ExchangeGiftStep4 />
-                    </KeepAlive>
-                }
-            />
-            <Route path="/camera" element={<CameraPage />} />
+            <Route path="/exchange-gift-step-4" element={<ExchangeGiftStep4 />} />
+            {/* <Route path="/camera" element={<CameraPage />} /> */}
             {/* <Route path="/account-info/:code/:type?" element={<AccountInfo />}></Route>
             <Route path="/scheme/:code/:type?" element={<SchemePage />}></Route>
             <Route path="/notification" element={<></>}></Route>

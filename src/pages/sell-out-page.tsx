@@ -19,7 +19,6 @@ import phoneIcon from '../static/icons/phoneIcon.png';
 import userIcon from '../static/icons/userIcon.png';
 import { SellOutResponse } from '../types/advancedTypes';
 import { OutletsResponse } from '../types/zaloMiniTypes';
-import { useAliveController } from 'react-activation';
 import useMathSorter from '../hooks/useMathSorter';
 const SellOutPage = () => {
     const { state }: { state: OutletsResponse } = useLocation();
@@ -124,10 +123,8 @@ const SpeedDialTooltipOpen = ({ state }: { state: OutletsResponse }) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const { drop, dropScope, clear, getCachingNodes } = useAliveController();
 
     const handleClose2 = (type: TYPE) => {
-        clear();
         setOpen(false);
         navi(`/exchange-gift-step-1`, { state: { ...state, giftType: type } });
     };

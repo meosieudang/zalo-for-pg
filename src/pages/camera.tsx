@@ -7,11 +7,11 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { useNavigate } from 'react-router-dom';
 import eventEmitter from '../utils/event-emitter';
 let timeout;
-const CameraPage = () => {
+const CameraPage = ({ onClose }) => {
     const cameraRef = useRef<ZMACamera | null>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [data, setData] = useState('');
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [vh, setVh] = useState(window.innerHeight);
 
     useEffect(() => {
@@ -114,7 +114,8 @@ const CameraPage = () => {
 
     const handleClick = () => {
         eventEmitter.emit('QR_CODE_CHANGED', { data });
-        navigate(-1);
+        onClose();
+        // navigate(-1);
     };
 
     const onRetake = async () => {
@@ -126,7 +127,7 @@ const CameraPage = () => {
 
     return (
         <Box display={'flex'} flexDirection={'column'} height={'100vh'}>
-            <Header title="Chụp ảnh" textColor="white" style={{ background: 'transparent', position: 'absolute' }} />
+            <Header onBackClick={onClose} title="Chụp ảnh" textColor="white" style={{ background: 'transparent', position: 'absolute' }} />
             {Boolean(data) ? (
                 <Box>
                     <Stack
