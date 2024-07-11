@@ -15,8 +15,14 @@ import ErrorScreen from '../components/error-screen';
 import ImageReview from '../components/image-review';
 import LoadingScreen from '../components/loading-screen';
 import { ERROR_PHONE, ERROR_TEXT, TYPE } from '../constant';
-import { useCreateSelloutMutation, useUpdateCustomerInfoMutation } from '../hooks/useAdvancedApi';
-import { useGetDataFromQRCode, useGetSellOutImageTypes, useGetSellOutTypes, useGetSelloutImageQueries } from '../hooks/useApiv2';
+import {
+    useGetDataFromQRCode,
+    useGetSellOutImageTypes,
+    useGetSellOutTypes,
+    useGetSelloutImageQueries,
+    useUpdateCustomerInfoMutation,
+    useCreateSelloutMutation
+} from '../hooks/useApiv2';
 import { ReportContent } from '../types/api';
 import { ConfirmDataZaloRequest, OutletsResponse } from '../types/zaloMiniTypes';
 import eventEmitter from '../utils/event-emitter';
@@ -204,10 +210,10 @@ const ExchangeGiftStep4 = () => {
 
         if (dataQRCode?.type.toString() === TYPE.LUCKY_DRAW) {
             console.log('call api 3');
-            mUpdateCustomerInfo.mutate({ data: body3, token: parseDataContent.accessToken });
+            mUpdateCustomerInfo.mutate({ body: JSON.stringify(body3) });
         } else {
             console.log('call api 12');
-            mCreateSellout.mutate({ data: body12, token: parseDataContent.accessToken });
+            mCreateSellout.mutate({ body: JSON.stringify(body12) });
         }
     };
 

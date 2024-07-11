@@ -69,6 +69,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import store_ic from '../static/icons/store_ic.png'
 const CampaignItem = (t: OutletsResponse) => {
     const navi = useNavigate();
     const label = t.isCheckOut == 1 ? 'Đã thực hiện' : t.isCheckIn == 1 ? 'Đang thực hiện' : 'Chưa thực hiện';
@@ -80,7 +81,7 @@ const CampaignItem = (t: OutletsResponse) => {
                     <CardMedia
                         component="img"
                         sx={{ width: 151, height: 151, objectFit: 'cover' }}
-                        image={t.photo}
+                        image={store_ic}
                         alt="Live from space album cover"
                     />
                     <Stack spacing={1}>

@@ -28,6 +28,7 @@ import {
 } from '../types/zaloMiniTypes';
 import { setSession } from '../utils/jwt';
 import { GiftResponse, ProductResponse } from '../types/advancedTypes';
+import { useAliveController } from 'react-activation';
 
 export const useGetCustomerGiftQueries = ({ campaignId }) => {
     return useQueries<UseQueryOptions<ResponseNetwork<ProductResponse[]>, ResponseNetwork<GiftResponse[]>>[]>({
@@ -360,6 +361,82 @@ export const useCreateQRCodeMutation = () => {
             console.log(data, 'res data');
             if (data.data) {
                 navi('/exchange-gift-step-2', { state: { ...variables.state, qrCode: data.data }, replace: true });
+            } else {
+                Swal.fire({
+                    title: 'Lỗi',
+                    text: `Có lỗi xảy ra!`,
+                    icon: 'error',
+                    customClass: {
+                        container: 'my-swal'
+                    },
+                    confirmButtonColor: '#3085d6'
+                });
+            }
+        },
+        onError(error, variables, context) {
+            console.log(error, 'err');
+            Swal.fire({
+                title: 'Lỗi',
+                text: _.get(error, 'response.data.error.message') || error.message,
+                icon: 'error',
+                customClass: {
+                    container: 'my-swal'
+                },
+                confirmButtonColor: '#3085d6'
+            });
+        }
+    });
+};
+
+export const useCreateSelloutMutation = () => {
+    const navi = useNavigate();
+    const { drop, dropScope, clear, getCachingNodes } = useAliveController();
+
+    return useMutation<{ message: string; orderCode: string; sellId: number }, AxiosError, { body: string }>({
+        mutationFn: (d) => axiosZaloMiniServices.post('api/miniapp/creadvanced/createsellout', d),
+        onSuccess(data, variables, context) {
+            console.log(data, 'res data');
+            if (data.sellId) {
+                clear();
+                navi(-2);
+            } else {
+                Swal.fire({
+                    title: 'Lỗi',
+                    text: `Có lỗi xảy ra!`,
+                    icon: 'error',
+                    customClass: {
+                        container: 'my-swal'
+                    },
+                    confirmButtonColor: '#3085d6'
+                });
+            }
+        },
+        onError(error, variables, context) {
+            console.log(error, 'err');
+            Swal.fire({
+                title: 'Lỗi',
+                text: _.get(error, 'response.data.error.message') || error.message,
+                icon: 'error',
+                customClass: {
+                    container: 'my-swal'
+                },
+                confirmButtonColor: '#3085d6'
+            });
+        }
+    });
+};
+
+export const useUpdateCustomerInfoMutation = () => {
+    const navi = useNavigate();
+    const { drop, dropScope, clear, getCachingNodes } = useAliveController();
+
+    return useMutation<number, AxiosError, { body: string }>({
+        mutationFn: (d) => axiosZaloMiniServices.post('/api/miniapp/creadvanced/updatecustomerinfo', d),
+        onSuccess(data, variables, context) {
+            console.log(data, 'res data');
+            if (data > 0) {
+                clear();
+                navi(-2);
             } else {
                 Swal.fire({
                     title: 'Lỗi',
