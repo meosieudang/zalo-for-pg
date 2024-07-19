@@ -2,33 +2,33 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import CloseIcon from '@mui/icons-material/Close';
 import { LoadingButton } from '@mui/lab';
-import { Box, IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Alert, Box, IconButton, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { Controller, useController, useFieldArray, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PullToRefresh from 'react-simple-pull-to-refresh';
+import { useToggle } from 'react-use';
 import * as yup from 'yup';
 import { configAppView } from 'zmp-sdk/apis';
 import { Header } from 'zmp-ui';
+import CameraModal from '../components/camera-modal';
 import ErrorScreen from '../components/error-screen';
 import ImageReview from '../components/image-review';
 import LoadingScreen from '../components/loading-screen';
 import { ERROR_PHONE, ERROR_TEXT, TYPE } from '../constant';
 import {
+    useCreateSelloutMutation,
     useGetDataFromQRCode,
     useGetSellOutImageTypes,
     useGetSellOutTypes,
     useGetSelloutImageQueries,
-    useUpdateCustomerInfoMutation,
-    useCreateSelloutMutation
+    useUpdateCustomerInfoMutation
 } from '../hooks/useApiv2';
 import { ReportContent } from '../types/api';
 import { ConfirmDataZaloRequest, OutletsResponse } from '../types/zaloMiniTypes';
 import eventEmitter from '../utils/event-emitter';
-import GiftItem from './index/gift-item';
-import CameraModal from '../components/camera-modal';
-import { useToggle } from 'react-use';
 import CameraPage from './camera';
+import GiftItem from './index/gift-item';
 
 const regexPhoneVN = /((^(\+84|84|0|0084){1})(3|5|7|8|9))+([0-9]{8})$/;
 const MIN_PHOTO = `Vui lòng chụp ảnh ít nhất 1 tấm`;
@@ -249,6 +249,7 @@ const ExchangeGiftStep4 = () => {
     return (
         <Box height={'100vh'} justifyContent={'center'} display={'flex'} flexDirection={'column'}>
             <Header title={'CRE Advanced'} onBackClick={handleBack} />
+            {_.isEmpty(errors) ? null : _.map(errors, (t) => <Alert severity="error">{t?.message}</Alert>)}
             <PullToRefresh
                 pullingContent={''}
                 onRefresh={async () => {
@@ -333,7 +334,7 @@ const ExchangeGiftStep4 = () => {
                     </Stack>
 
                     <BillInfo control={control} state={state} />
-                    <PrizePhotoInfo state={state} control={control} errors={errors['prizePhotos']?.message} />
+                    <PrizePhotoInfo state={state} control={control} />
                 </Box>
             </PullToRefresh>
 
@@ -407,7 +408,7 @@ const BillInfo = ({ control, state }) => {
     );
 };
 
-const PrizePhotoInfo = ({ control, errors, state }) => {
+const PrizePhotoInfo = ({ control, state }) => {
     const navi = useNavigate();
     const { fields: photoFields, append, remove } = useFieldArray({ control, name: 'prizePhotos' });
     const [open, setOpen] = React.useState(false);
@@ -438,11 +439,6 @@ const PrizePhotoInfo = ({ control, errors, state }) => {
                 {`Hình chụp trúng thưởng`}
             </Typography>
             <Stack p={2} gap={2}>
-                {Boolean(errors) && (
-                    <Typography variant="caption" color={'error.main'}>
-                        {errors}
-                    </Typography>
-                )}
                 <Stack alignItems="flex-start" direction={'row'} spacing={1} flex={1}>
                     {!state.onlyRead && (
                         <IconButton onClick={handleClickOpen} size="large">
