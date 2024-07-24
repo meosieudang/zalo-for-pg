@@ -390,12 +390,12 @@ export const useCreateQRCodeMutation = () => {
 export const useCreateSelloutMutation = () => {
     const navi = useNavigate();
 
-    return useMutation<ResponseNetwork<{ message: string; orderCode: string; sellId: number }>, AxiosError, { body: string }>({
+    return useMutation<ResponseNetwork<{ message: string; orderCode: string; sellId: number }>, AxiosError, { body: string , fromSellOutPage: boolean}>({
         mutationFn: (d) => axiosZaloMiniServices.post('api/miniapp/creadvanced/createsellout', d),
         onSuccess(data, variables, context) {
             console.log(data, 'res data');
             if (_.get(data, 'data.sellId')) {
-                navi(-2);
+               variables.fromSellOutPage ? navi(-1) :  navi(-2);
             } else {
                 Swal.fire({
                     title: 'Lỗi',
@@ -426,12 +426,12 @@ export const useCreateSelloutMutation = () => {
 export const useUpdateCustomerInfoMutation = () => {
     const navi = useNavigate();
 
-    return useMutation<ResponseNetwork<number>, AxiosError, { body: string }>({
+    return useMutation<ResponseNetwork<number>, AxiosError, { body: string, fromSellOutPage: boolean }>({
         mutationFn: (d) => axiosZaloMiniServices.post('/api/miniapp/creadvanced/updatecustomerinfo', d),
         onSuccess(data, variables, context) {
             console.log(data, 'res data');
             if (data.data > 0) {
-                navi(-2);
+                variables.fromSellOutPage ? navi(-1) :  navi(-2);
             } else {
                 Swal.fire({
                     title: 'Lỗi',

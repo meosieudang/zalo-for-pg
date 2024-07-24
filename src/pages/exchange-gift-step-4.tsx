@@ -56,7 +56,7 @@ const validationSchema = yup.object({
 });
 
 const ExchangeGiftStep4 = () => {
-    const { state }: { state: OutletsResponse & { qrCode: string; giftType: TYPE; onlyRead?: boolean; selloutId?: number } } =
+    const { state }: { state: OutletsResponse & { qrCode: string; giftType: TYPE; onlyRead?: boolean; selloutId?: number, fromSellOutPage?:boolean } } =
         useLocation();
     const navi = useNavigate();
     const mCreateSellout = useCreateSelloutMutation();
@@ -209,10 +209,10 @@ const ExchangeGiftStep4 = () => {
 
         if (dataQRCode?.type.toString() === TYPE.LUCKY_DRAW) {
             console.log('call api 3');
-            mUpdateCustomerInfo.mutate({ body: JSON.stringify(body3) });
+            mUpdateCustomerInfo.mutate({ body: JSON.stringify(body3), fromSellOutPage: state.fromSellOutPage ?? false});
         } else {
             console.log('call api 12');
-            mCreateSellout.mutate({ body: JSON.stringify(body12) });
+            mCreateSellout.mutate({ body: JSON.stringify(body12), fromSellOutPage: state.fromSellOutPage ?? false });
         }
     };
 

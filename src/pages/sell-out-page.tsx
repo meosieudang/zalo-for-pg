@@ -68,7 +68,7 @@ const SellOutPage = () => {
             <Search value={values} onChange={onSearch} />
             <ConsumerList data={_.size(search) ? search : _.get(sellOutQuery, 'data.data')} />
             <Fab
-                onClick={() => navi(`/exchange-gift-step-3`, { replace: false, state })}
+                onClick={() => navi(`/exchange-gift-step-3`, { replace: false, state:{...state, fromSellOutPage:true} })}
                 size="large"
                 variant="extended"
                 color="primary"
